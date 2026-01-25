@@ -244,7 +244,8 @@ app.post('/api/contact', async (req, res) => {
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Handle Client-Side Routing
-app.get('*', (req, res) => {
+// Express 5 requires Regex or distinct syntax for wildcards
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
