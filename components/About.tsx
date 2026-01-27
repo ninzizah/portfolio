@@ -11,18 +11,18 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ siteConfig, projectsCount, researchCount }) => {
     return (
-        <section id="about" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <section id="about" className="py-16 px-6 max-w-6xl mx-auto border-t border-white/5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                 <div className="relative">
                     <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-600/10 blur-[120px] rounded-full animate-pulse" />
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-12 leading-[0.9]"
+                        className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase mb-8 leading-tight"
                     >
                         The <br /> <span className="text-indigo-500">Architect.</span>
                     </motion.h2>
-                    <div className="space-y-8 text-slate-400 text-base md:text-lg leading-relaxed font-medium">
+                    <div className="space-y-6 text-slate-400 text-sm md:text-base leading-relaxed font-medium">
                         <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                             {siteConfig.aboutText1}
                         </motion.p>

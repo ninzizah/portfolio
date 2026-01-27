@@ -75,17 +75,17 @@ const Contact: React.FC<ContactProps> = ({
     const loadingState = isSending || localIsSending;
 
     return (
-        <section id="contact" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <section id="contact" className="py-16 px-6 max-w-6xl mx-auto border-t border-white/5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
                 <div>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase mb-10 leading-[0.8]"
+                        className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase mb-6 leading-tight"
                     >
                         Initialize <br /> Connection.
                     </motion.h2>
-                    <p className="text-slate-400 text-lg font-medium max-w-md mb-12">
+                    <p className="text-slate-400 text-sm font-medium max-w-md mb-8">
                         Have a complex problem to solve or a research opportunity? Send your briefing directly to my architecture
                         hub.
                     </p>

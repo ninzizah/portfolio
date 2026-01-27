@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
     const nameParts = siteConfig.heroName.split(/([\s.])/);
 
     return (
-        <section className="min-h-[85vh] px-6 lg:px-12 py-20 max-w-[90rem] mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-10 lg:gap-16">
+        <section className="min-h-[70vh] px-6 lg:px-12 py-16 max-w-[85rem] mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] items-center gap-10 lg:gap-12">
             <div className="flex flex-col items-start text-left min-w-0">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-[8vw] sm:text-6xl lg:text-[6.5rem] font-black text-white tracking-tighter uppercase mb-6 leading-[0.8] break-words whitespace-pre-wrap"
+                    className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase mb-6 leading-tight break-words whitespace-pre-wrap"
                 >
                     {nameParts.map((part, i) => (
                         <span key={i} className="inline-block min-h-[0.8em]">
@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-base md:text-xl text-slate-400 max-w-xl mb-10 leading-relaxed font-semibold opacity-80"
+                    className="text-sm md:text-base text-slate-400 max-w-lg mb-8 leading-relaxed font-semibold opacity-70"
                 >
                     {siteConfig.heroSub}
                 </motion.p>
@@ -95,12 +95,12 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
-                className="w-full max-w-md mx-auto aspect-[4/5] relative hidden lg:block"
+                className="w-full max-w-[280px] mx-auto aspect-[4/5] relative hidden lg:block"
             >
                 <TiltCard className="w-full h-full">
                     <div className="flex-1 relative w-full max-w-md lg:max-w-lg mx-auto">
                         {/* Responsive Image Container */}
-                        <div className="relative aspect-[4/5] w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-3xl bg-white/5">
+                        <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-3xl bg-white/5">
                             {siteConfig.heroImage ? (
                                 <img
                                     src={siteConfig.heroImage}

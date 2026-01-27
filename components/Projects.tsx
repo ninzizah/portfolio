@@ -13,11 +13,11 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     const [playingVideoId, setPlayingVideoId] = React.useState<string | null>(null);
 
     return (
-        <section id="projects" className="py-24 px-4 max-w-7xl mx-auto border-t border-white/5">
+        <section id="projects" className="py-16 px-4 max-w-6xl mx-auto border-t border-white/5">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 px-6 gap-10">
                 <div>
                     <span className="text-indigo-500 font-black uppercase text-xs tracking-[0.5em] mb-4 block">Registry</span>
-                    <h2 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.8]">
+                    <h2 className="text-2xl md:text-5xl font-black text-white uppercase tracking-tighter leading-tight">
                         Software <br /> Ecosystem.
                     </h2>
                 </div>
