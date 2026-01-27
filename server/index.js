@@ -262,13 +262,12 @@ app.post('/api/contact', async (req, res) => {
                 `
             };
 
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.error('Error sending email:', error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+            try {
+                await transporter.sendMail(mailOptions);
+                console.log('Email sent successfully');
+            } catch (mailError) {
+                console.error('Error sending email:', mailError);
+            }
         }
 
         res.status(201).json({ success: true, data: result.rows[0] });

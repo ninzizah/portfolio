@@ -109,9 +109,9 @@ const Footer: React.FC<FooterProps> = ({ siteConfig, handleViewCV, setShowLogin 
                             </p>
                             <a
                                 href={`mailto:${siteConfig.email}`}
-                                className="w-full py-4 px-6 bg-white/5 hover:bg-indigo-600 text-white font-black uppercase text-[10px] tracking-[0.4em] rounded-xl transition-all flex items-center justify-center gap-3 group/btn"
+                                className="w-full py-4 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-black uppercase text-[10px] tracking-[0.4em] rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-indigo-600/20"
                             >
-                                <Send className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" /> Initialize_Uplink
+                                <Send className="w-4 h-4" /> Say Hello
                             </a>
                         </div>
                     </div>
