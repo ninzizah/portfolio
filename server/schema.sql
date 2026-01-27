@@ -45,6 +45,13 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
+-- 5. Skills Table
+CREATE TABLE IF NOT EXISTS skills (
+    id SERIAL PRIMARY KEY,
+    category TEXT NOT NULL,
+    items TEXT[]
+);
+
 -- 5. Initialize Config Row (Ignore if exists)
 INSERT INTO site_config (id, hero_name, hero_sub, email) 
 VALUES (1, 'Honore Ninziza', 'Software Engineer', 'user@example.com')

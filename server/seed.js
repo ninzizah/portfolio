@@ -2,11 +2,14 @@ require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    // Fallback for local development
     user: process.env.DB_USER || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     database: process.env.DB_NAME || 'portfolio_db',
     password: process.env.DB_PASSWORD || '1212',
     port: process.env.DB_PORT || 5432,
+    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false // Required for Render
 });
 
 const originalProjects = [
@@ -96,16 +99,27 @@ const originalSkills = [
     }
 ];
 
+const fs = require('fs');
+const path = require('path');
+
 async function seed() {
     try {
         console.log('Connecting to database...');
 
-        // 1. Update Schema ensure columns exist
+        // 0. CREATE TABLES (Run schema.sql first)
+        console.log('Creating tables...');
+        const schema = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
+        await pool.query(schema);
+        console.log('✅ Tables created.');
+
+        // 1. Update Schema ensure columns exist (Migrations)
         try {
             await pool.query('ALTER TABLE site_config ADD COLUMN IF NOT EXISTS about_text1 TEXT');
             await pool.query('ALTER TABLE site_config ADD COLUMN IF NOT EXISTS about_text2 TEXT');
             await pool.query('ALTER TABLE site_config ADD COLUMN IF NOT EXISTS phone TEXT');
             await pool.query('ALTER TABLE site_config ADD COLUMN IF NOT EXISTS linkedin TEXT');
+            await pool.query('ALTER TABLE projects ADD COLUMN IF NOT EXISTS video_url TEXT');
+            await pool.query('ALTER TABLE site_config ADD COLUMN IF NOT EXISTS copyright_text TEXT');
         } catch (e) { console.log('Columns likely exist or alter failed'); }
 
         // 2. Insert Config with Default "About Me"

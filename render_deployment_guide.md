@@ -35,9 +35,9 @@ Render pulls your code from GitHub.
 1.  On Render, click **New +** -> **Web Service**.
 2.  **Connect GitHub**: Select your `portfolio` repo.
 3.  **Settings**:
-    - **Name**: `ninziza-portfolio` (Your site will be `ninziza-portfolio.onrender.com`).
+    - **Name**: `ninziza-shema-honore`
     - **Runtime**: `Node`.
-    - **Build Command**: `npm install && npm run build`
+    - **Build Command**: `npm install --legacy-peer-deps && npm run build`
     - **Start Command**: `node server/index.js`
     - **Plan**: **Free**.
 4.  **Environment Variables** (Scroll down):
@@ -56,4 +56,4 @@ Your live database is empty. We need to fill it.
     ```
     *(This connects to the cloud implementation and fills it with your projects/skills).*
 
-Done! Your site will be live at `https://ninziza-portfolio.onrender.com`.
+Done! Your site will be live at `https://ninziza-shema-honore.onrender.com`.
