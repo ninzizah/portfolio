@@ -35,7 +35,8 @@ const App: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
-  const [activeTab, setActiveTab] = useState<'settings' | 'projects' | 'research' | 'skills'>('settings');
+  const [activeTab, setActiveTab] = useState<'settings' | 'projects' | 'research' | 'skills' | 'messages'>('settings');
+  const [messages, setMessages] = useState<any[]>([]);
 
   const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [isSending, setIsSending] = useState(false);
@@ -49,16 +50,18 @@ const App: React.FC = () => {
     const initData = async () => {
       setIsLoading(true);
       try {
-        const [fetchedProjects, fetchedConfig, fetchedResearch, fetchedSkills] = await Promise.all([
+        const [fetchedProjects, fetchedConfig, fetchedResearch, fetchedSkills, fetchedMessages] = await Promise.all([
           dbService.getProjects(),
           dbService.getConfig(),
           dbService.getResearch(),
           dbService.getSkills(),
+          dbService.getMessages(),
         ]);
 
         setProjects(fetchedProjects || []);
         setResearch(fetchedResearch || []);
         setSkills(fetchedSkills || []);
+        setMessages(fetchedMessages || []);
 
         if (fetchedConfig) {
           setSiteConfig(fetchedConfig);
@@ -226,6 +229,14 @@ const App: React.FC = () => {
     }
   };
 
+  const handleDeleteMessage = async (id: string) => {
+    if (confirm('Permanently delete this message from archive?')) {
+      await dbService.deleteMessage(id);
+      const updated = await dbService.getMessages();
+      setMessages(updated);
+    }
+  };
+
 
   if (isLoading || !siteConfig) {
     return (
@@ -299,6 +310,8 @@ const App: React.FC = () => {
         skills={skills}
         handleSaveSkill={handleSaveSkill}
         handleDeleteSkill={handleDeleteSkill}
+        messages={messages}
+        handleDeleteMessage={handleDeleteMessage}
       />
     </div>
   );

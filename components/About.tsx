@@ -18,11 +18,11 @@ const About: React.FC<AboutProps> = ({ siteConfig, projectsCount, researchCount 
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-8 leading-tight"
+                        className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-10 leading-[0.9]"
                     >
                         The <br /> <span className="text-indigo-500">Architect.</span>
                     </motion.h2>
-                    <div className="space-y-6 text-slate-400 text-lg md:text-xl leading-relaxed font-medium">
+                    <div className="space-y-8 text-slate-400 text-lg md:text-xl leading-relaxed font-medium">
                         <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                             {siteConfig.aboutText1}
                         </motion.p>

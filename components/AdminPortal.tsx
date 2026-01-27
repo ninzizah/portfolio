@@ -16,8 +16,8 @@ import { SiteConfig, Project, Research } from '../types';
 interface AdminPortalProps {
     isAdminPortalOpen: boolean;
     handleLogout: () => void;
-    activeTab: 'settings' | 'projects' | 'research' | 'skills';
-    setActiveTab: (tab: 'settings' | 'projects' | 'research' | 'skills') => void;
+    activeTab: 'settings' | 'projects' | 'research' | 'skills' | 'messages';
+    setActiveTab: (tab: 'settings' | 'projects' | 'research' | 'skills' | 'messages') => void;
     tempConfig: SiteConfig | null;
     setTempConfig: (config: SiteConfig | null) => void;
     handleSaveConfig: () => Promise<void>;
@@ -39,6 +39,8 @@ interface AdminPortalProps {
     skills: any[];
     handleSaveSkill: (skill: any) => Promise<void>;
     handleDeleteSkill: (id: string) => Promise<void>;
+    messages: any[];
+    handleDeleteMessage: (id: string) => Promise<void>;
 }
 
 const AdminPortal: React.FC<AdminPortalProps> = ({
@@ -66,6 +68,8 @@ const AdminPortal: React.FC<AdminPortalProps> = ({
     skills,
     handleSaveSkill,
     handleDeleteSkill,
+    messages,
+    handleDeleteMessage,
 }) => {
     return (
         <AnimatePresence>
@@ -88,7 +92,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({
                                     <Settings className="w-7 h-7 text-indigo-500" /> Kernel Hub
                                 </h2>
                                 <nav className="space-y-5">
-                                    {['settings', 'projects', 'research', 'skills'].map((tab) => (
+                                    {['settings', 'projects', 'research', 'skills', 'messages'].map((tab) => (
                                         <button
                                             key={tab}
                                             onClick={() => setActiveTab(tab as any)}

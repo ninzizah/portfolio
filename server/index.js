@@ -239,6 +239,24 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+app.get('/api/messages', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM messages ORDER BY created_at DESC');
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'DB Error' });
+    }
+});
+
+app.delete('/api/messages/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM messages WHERE id = $1', [req.params.id]);
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ error: 'Delete Failed' });
+    }
+});
+
 
 // Serve Static Files (Vite Build)
 app.use(express.static(path.join(__dirname, '../dist')));

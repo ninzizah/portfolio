@@ -91,5 +91,17 @@ export const dbService = {
 
   async deleteSkill(id: string): Promise<void> {
     await fetch(`${API_URL}/skills/${id}`, { method: 'DELETE' });
+  },
+
+  // --- Messages ---
+  async getMessages(): Promise<any[]> {
+    try {
+      const res = await fetch(`${API_URL}/messages`);
+      return await res.json();
+    } catch (e) { return [] }
+  },
+
+  async deleteMessage(id: string): Promise<void> {
+    await fetch(`${API_URL}/messages/${id}`, { method: 'DELETE' });
   }
 };
