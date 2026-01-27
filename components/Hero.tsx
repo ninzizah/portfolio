@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
     const nameParts = siteConfig.heroName.split(/([\s.])/);
 
     return (
-        <section className="min-h-[70vh] px-6 lg:px-12 py-16 max-w-[85rem] mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] items-center gap-10 lg:gap-12">
+        <section className="min-h-[80vh] px-6 lg:px-12 pt-40 pb-20 max-w-[85rem] mx-auto grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] items-center gap-10 lg:gap-12 relative z-10">
             <div className="flex flex-col items-start text-left min-w-0">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
