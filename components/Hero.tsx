@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
     const nameParts = siteConfig.heroName.split(/([\s.])/);
 
     return (
-        <section className="min-h-screen px-6 lg:px-12 py-32 max-w-[95rem] mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] items-center gap-10 lg:gap-20">
+        <section className="min-h-screen px-6 lg:px-12 py-24 max-w-[95rem] mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] items-center gap-10 lg:gap-20">
             <div className="flex flex-col items-start text-left min-w-0">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-[12vw] sm:text-8xl lg:text-[10rem] font-black text-white tracking-tighter uppercase mb-10 leading-[0.75] break-words whitespace-pre-wrap"
+                    className="text-[10vw] sm:text-7xl lg:text-[8rem] font-black text-white tracking-tighter uppercase mb-10 leading-[0.75] break-words whitespace-pre-wrap"
                 >
                     {nameParts.map((part, i) => (
                         <span key={i} className="inline-block min-h-[0.8em]">
@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-xl md:text-3xl text-slate-400 max-w-2xl mb-12 leading-relaxed font-medium"
+                    className="text-lg md:text-2xl text-slate-400 max-w-2xl mb-12 leading-relaxed font-medium"
                 >
                     {siteConfig.heroSub}
                 </motion.p>
@@ -62,13 +62,13 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                                 document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
                             }
                         }}
-                        className="px-12 py-6 bg-indigo-600 text-white font-black uppercase text-xs tracking-widest rounded-2xl flex items-center gap-3 hover:bg-indigo-500 transition-colors shadow-2xl shadow-indigo-600/40"
+                        className="px-10 py-5 bg-indigo-600 text-white font-black uppercase text-xs tracking-widest rounded-2xl flex items-center gap-3 hover:bg-indigo-500 transition-colors shadow-2xl shadow-indigo-600/40"
                     >
                         Enter Repository <ArrowRight className="w-5 h-5" />
                     </MagneticButton>
                     <MagneticButton
                         onClick={handleViewCV}
-                        className="px-12 py-6 glass text-white font-black uppercase text-xs tracking-widest rounded-2xl border border-white/10 hover:bg-white/5 transition-colors flex items-center gap-3"
+                        className="px-10 py-5 glass text-white font-black uppercase text-xs tracking-widest rounded-2xl border border-white/10 hover:bg-white/5 transition-colors flex items-center gap-3"
                     >
                         Scan CV <Eye className="w-5 h-5" />
                     </MagneticButton>

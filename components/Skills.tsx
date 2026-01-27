@@ -13,8 +13,8 @@ const Skills: React.FC<SkillsProps> = ({ siteConfig, skills }) => {
     const displaySkills = skills.length > 0 ? skills : siteConfig.skillsCategories;
 
     return (
-        <section id="skills" className="py-32 px-6 max-w-7xl mx-auto border-t border-white/5">
-            <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-20">Deep Technical Stack</h2>
+        <section id="skills" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+            <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-20">Deep Technical Stack</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {(displaySkills || []).map((cat, i) => (
                     <motion.div
@@ -23,7 +23,7 @@ const Skills: React.FC<SkillsProps> = ({ siteConfig, skills }) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
                     >
-                        <div className="glass p-10 rounded-[3rem] border-white/5 h-full hover:border-indigo-500/20 transition-all group">
+                        <div className="glass p-8 rounded-[2rem] border-white/5 h-full hover:border-indigo-500/20 transition-all group">
                             <h3 className="text-indigo-400 font-black uppercase text-xs tracking-[0.4em] mb-10 flex items-center gap-3">
                                 <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
                                 {cat?.category || 'Category'}

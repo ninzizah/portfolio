@@ -75,17 +75,17 @@ const Contact: React.FC<ContactProps> = ({
     const loadingState = isSending || localIsSending;
 
     return (
-        <section id="contact" className="py-32 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <section id="contact" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
                 <div>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mb-10 leading-[0.8]"
+                        className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase mb-10 leading-[0.8]"
                     >
                         Initialize <br /> Connection.
                     </motion.h2>
-                    <p className="text-slate-400 text-xl font-medium max-w-md mb-12">
+                    <p className="text-slate-400 text-lg font-medium max-w-md mb-12">
                         Have a complex problem to solve or a research opportunity? Send your briefing directly to my architecture
                         hub.
                     </p>
@@ -110,7 +110,7 @@ const Contact: React.FC<ContactProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="glass p-12 rounded-[4rem] border-white/10 bg-white/[0.02] relative overflow-hidden shadow-3xl">
+                <div className="glass p-8 rounded-[2.5rem] border-white/10 bg-white/[0.02] relative overflow-hidden shadow-3xl">
                     <AnimatePresence>
                         {loadingState && (
                             <motion.div

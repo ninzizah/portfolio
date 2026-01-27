@@ -13,15 +13,15 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     const [playingVideoId, setPlayingVideoId] = React.useState<string | null>(null);
 
     return (
-        <section id="projects" className="py-32 px-4 max-w-7xl mx-auto border-t border-white/5">
+        <section id="projects" className="py-24 px-4 max-w-7xl mx-auto border-t border-white/5">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 px-6 gap-10">
                 <div>
                     <span className="text-indigo-500 font-black uppercase text-xs tracking-[0.5em] mb-4 block">Registry</span>
-                    <h2 className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-[0.8]">
+                    <h2 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.8]">
                         Software <br /> Ecosystem.
                     </h2>
                 </div>
-                <p className="text-slate-500 max-w-sm text-sm font-medium leading-relaxed">
+                <p className="text-slate-500 max-w-sm text-xs font-medium leading-relaxed">
                     Curated architectural builds across web, mobile, and system infrastructures. Each solution is a step toward
                     global digital transformation.
                 </p>
@@ -36,7 +36,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                         viewport={{ once: true }}
                     >
                         <TiltCard className="h-full">
-                            <div className="glass rounded-[3.5rem] overflow-hidden border-white/5 h-full group transition-all hover:border-indigo-500/20">
+                            <div className="glass rounded-[2.5rem] overflow-hidden border-white/5 h-full group transition-all hover:border-indigo-500/20">
                                 <div className="aspect-video relative overflow-hidden bg-black">
                                     {project.videoUrl && playingVideoId === project.id ? (
                                         <video
@@ -70,7 +70,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="p-12">
+                                <div className="p-8">
                                     <div className="flex justify-between items-start mb-6">
                                         <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-[0.4em]">
                                             {project.year}
@@ -98,7 +98,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                                             )}
                                         </div>
                                     </div>
-                                    <h3 className="text-3xl font-black text-white mb-6 uppercase tracking-tight">{project.title}</h3>
+                                    <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-tight">{project.title}</h3>
                                     <p className="text-slate-400 text-base leading-relaxed mb-8 line-clamp-3">{project.description}</p>
                                 </div>
                             </div>
