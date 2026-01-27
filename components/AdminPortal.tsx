@@ -673,6 +673,56 @@ const AdminPortal: React.FC<AdminPortalProps> = ({
                                     </div>
                                 </div>
                             )}
+                            {activeTab === 'messages' && (
+                                <div className="space-y-10">
+                                    <h3 className="text-2xl font-black text-white uppercase tracking-widest mb-10">Transmission Archive</h3>
+                                    {messages.length === 0 ? (
+                                        <div className="glass p-20 rounded-[3rem] text-center border-white/5">
+                                            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">No active transmissions in archive.</p>
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 gap-6">
+                                            {messages.map((m: any) => (
+                                                <div key={m.id} className="glass p-10 rounded-[3rem] border-white/5 relative group hover:border-indigo-500/20 transition-all">
+                                                    <button
+                                                        onClick={() => handleDeleteMessage(m.id)}
+                                                        className="absolute top-10 right-10 p-4 bg-red-500/10 text-red-500 rounded-2xl hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                                                    >
+                                                        <Trash2 className="w-5 h-5" />
+                                                    </button>
+                                                    <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10">
+                                                        <div className="space-y-4">
+                                                            <div>
+                                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Originator</p>
+                                                                <p className="text-white font-black text-lg">{m.name}</p>
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Contact Gateway</p>
+                                                                <p className="text-indigo-400 font-bold">{m.email}</p>
+                                                                {m.phone && <p className="text-slate-400 text-xs font-medium">{m.phone}</p>}
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Timestamp</p>
+                                                                <p className="text-slate-500 text-[10px] font-bold">
+                                                                    {new Date(m.created_at).toLocaleString()}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="bg-white/[0.02] p-8 rounded-3xl border border-white/5">
+                                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                                                <FileText className="w-3 h-3 text-indigo-500" /> Payload Data
+                                                            </p>
+                                                            <p className="text-slate-300 font-medium leading-relaxed whitespace-pre-wrap">
+                                                                {m.message}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </motion.div>
                 </div>
