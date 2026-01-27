@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     { icon: <Linkedin className="w-5 h-5" />, href: "https://www.linkedin.com/in/ninziza-shema-honore-b4400421a/", label: "LinkedIn" },
     { icon: <Github className="w-5 h-5" />, href: "https://github.com/ninzizah", label: "GitHub" },
     { icon: <Instagram className="w-5 h-5" />, href: "https://instagram.com/i.am.honore", label: "Instagram" },
-    { icon: <Mail className="w-5 h-5" />, href: "mailto:shema2020honore@gmail.com", label: "Email" },
+    { icon: <Mail className="w-5 h-5" />, href: `mailto:shema2020honore@gmail.com`, label: "Email" },
   ];
 
   const scrollToSection = (id: string) => {
