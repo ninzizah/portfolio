@@ -92,7 +92,7 @@ const Footer: React.FC<FooterProps> = ({ siteConfig, handleViewCV, setShowLogin 
                             </li>
                             <li>
                                 <a href={`mailto:${siteConfig.email}`} className="text-slate-500 hover:text-indigo-400 transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                                    <Mail className="w-3.5 h-3.5" /> Email Me
+                                    <Mail className="w-3.5 h-3.5" /> Direct Email
                                 </a>
                             </li>
                         </ul>

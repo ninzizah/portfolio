@@ -142,7 +142,7 @@ const Contact: React.FC<ContactProps> = ({
                                 </p>
                                 <button
                                     onClick={() => setShowSuccess(false)}
-                                    className="px-10 py-5 bg-indigo-600 text-white font-black uppercase text-[10px] tracking-[0.3em] rounded-2xl shadow-2xl hover:bg-indigo-500 transition-all"
+                                    className="px-10 py-5 bg-indigo-600 text-white font-black uppercase text-[10px] tracking-[0.3em] rounded-2xl shadow-2xl hover:bg-indigo-500 transition-all cursor-pointer relative z-[60]"
                                 >
                                     Return to Hub
                                 </button>
