@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,6 +22,15 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD || '1212',
     port: process.env.DB_PORT || 5432,
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+});
+
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
 });
 
 // Test Connection
@@ -232,6 +242,35 @@ app.post('/api/contact', async (req, res) => {
     try {
         const query = 'INSERT INTO messages (name, email, phone, message, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING *';
         const result = await pool.query(query, [name, email, phone, message]);
+
+        // Email Notification
+        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_USER, // Sending to yourself
+                subject: `New Portfolio Message from ${name}`,
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                        <h2 style="color: #4f46e5;">New Briefing Received</h2>
+                        <p><strong>Name:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+                        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                        <p><strong>Message:</strong></p>
+                        <p style="white-space: pre-wrap;">${message}</p>
+                    </div>
+                `
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Error sending email:', error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        }
+
         res.status(201).json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error('Error saving message:', error);
