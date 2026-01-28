@@ -81,7 +81,7 @@ const Contact: React.FC<ContactProps> = ({
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase mb-6 leading-tight"
+                        className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tighter uppercase mb-6 leading-none"
                     >
                         Initialize <br /> Connection.
                     </motion.h2>
@@ -110,7 +110,7 @@ const Contact: React.FC<ContactProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="glass p-8 rounded-[2.5rem] border-white/10 bg-white/[0.02] relative overflow-hidden shadow-3xl">
+                <div className="glass p-6 md:p-10 rounded-[2.5rem] border-white/10 bg-white/[0.02] relative overflow-hidden shadow-3xl">
                     <AnimatePresence>
                         {loadingState && (
                             <motion.div
@@ -137,8 +137,8 @@ const Contact: React.FC<ContactProps> = ({
                                     <CheckCircle2 className="w-12 h-12 text-emerald-400" />
                                 </div>
                                 <h3 className="text-2xl font-black text-white uppercase tracking-[0.2em] mb-6">Message Sent</h3>
-                                <p className="text-slate-400 text-sm font-medium mb-10 leading-relaxed">
-                                    Your secure transmission has been stored in the database archive. I will review it shortly.
+                                <p className="text-slate-400 text-sm md:text-base font-medium mb-10 leading-relaxed px-4">
+                                    Your secure transmission has been stored in the database archive and forwarded to my email. I will review it shortly.
                                 </p>
                                 <button
                                     onClick={() => setShowSuccess(false)}
