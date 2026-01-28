@@ -261,8 +261,9 @@ app.post('/api/contact', async (req, res) => {
         const query = 'INSERT INTO messages (name, email, phone, message, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING *';
         const result = await pool.query(query, [name, email, phone, message]);
 
+        const savedMessage = result.rows[0];
         // 1. Send response IMMEDIATELY to the client (Instant UI feedback)
-        res.status(201).json({ success: true, data: result.rows[0] });
+        res.status(201).json({ success: true, data: savedMessage });
 
         // 2. Dispatch email in the background (Non-blocking)
         if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
