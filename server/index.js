@@ -25,6 +25,13 @@ const pool = new Pool({
 });
 
 // Nodemailer Transporter
+console.log('Initializing Email System...');
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn('⚠️ WARNING: EMAIL_USER or EMAIL_PASS not found in environment. Email notifications will be DISABLED.');
+} else {
+    console.log(`✅ Email System Active: Notifications will be sent to ${process.env.EMAIL_USER}`);
+}
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
