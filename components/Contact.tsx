@@ -86,8 +86,7 @@ const Contact: React.FC<ContactProps> = ({
                         Initialize <br /> Connection.
                     </motion.h2>
                     <p className="text-slate-400 text-sm font-medium max-w-md mb-8">
-                        Have a complex problem to solve or a research opportunity? Send your briefing directly to my architecture
-                        hub.
+                        Have a complex problem to solve or a research opportunity? Send your briefing directly to my engineering hub.
                     </p>
                     <div className="space-y-6">
                         <div className="flex items-center gap-6 p-6 glass rounded-[2rem] border-white/5">

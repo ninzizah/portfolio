@@ -34,11 +34,11 @@ const Footer: React.FC<FooterProps> = ({ siteConfig, handleViewCV, setShowLogin 
                                 <Code2 className="w-6 h-6" />
                             </div>
                             <span className="text-xl font-black text-white uppercase tracking-tighter">
-                                I.Am.Honore
+                                I.Am.Honore | Engineer
                             </span>
                         </div>
                         <p className="text-slate-500 text-sm leading-relaxed max-w-xs font-medium">
-                            Architecting high-performance digital systems. Available for strategic partnerships and engineering briefings.
+                            Engineering high-performance digital systems. Available for strategic partnerships and technical briefings.
                         </p>
                         <div className="flex items-center gap-2 text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] opacity-60">
                             <MapPin className="w-3 h-3 text-indigo-500" /> Kigali, Rwanda

@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({ siteConfig, handleViewCV, setShowLogin }) =
                     className="mb-8 flex items-center gap-4"
                 >
                     <div className="px-4 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-[0.3em]">
-                        Status: Integrated / Senior Architect
+                        Status: Integrated / Senior Engineer
                     </div>
                 </motion.div>
                 <motion.h1
