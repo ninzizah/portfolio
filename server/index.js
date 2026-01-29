@@ -3,7 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const path = require('path');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,31 +24,15 @@ const pool = new Pool({
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
-// Nodemailer Transporter
-console.log('Initializing Email System...');
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.warn('⚠️ WARNING: EMAIL_USER or EMAIL_PASS not found in environment. Email notifications will be DISABLED.');
+// Resend Configuration
+console.log('Initializing Resend Email System...');
+if (!process.env.RESEND_API_KEY) {
+    console.warn('⚠️ WARNING: RESEND_API_KEY not found in environment. Email notifications will be DISABLED.');
 } else {
-    console.log(`✅ Email System Active: Notifications will be sent to ${process.env.EMAIL_USER}`);
+    console.log(`✅ Email System Active: Using Resend API`);
 }
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    connectionTimeout: 10000 // 10 seconds timeout
-});
-
-// Verify Connection Configuration
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('❌ Email System Error:', error.message);
-    } else {
-        console.log('✨ Email System is ready to take messages');
-    }
-});
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Test Connection
 pool.connect((err, client, release) => {
@@ -265,14 +249,15 @@ app.post('/api/contact', async (req, res) => {
         res.status(201).json({ success: true, data: savedMessage });
 
         // 2. Dispatch email in the background (Non-blocking)
-        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        if (resend) {
             console.log(`[Email] Initiating background dispatch for ${name}...`);
-            const mailOptions = {
-                from: process.env.EMAIL_USER,
-                to: process.env.EMAIL_USER,
+
+            resend.emails.send({
+                from: 'Registry <onboarding@resend.dev>',
+                to: 'shema2020honore@gmail.com',
                 subject: `New Portfolio Message from ${name}`,
                 html: `
-                    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; border: 1px solid #eee; border-radius: 10px;">
+                    <div style="font-family: sans-serif; padding: 20px; color: #333; max-width: 600px; border: 1px solid #eee; border-radius: 10px;">
                         <h2 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">New Briefing Received</h2>
                         <div style="margin: 20px 0;">
                             <p><strong>Name:</strong> ${name}</p>
@@ -285,11 +270,8 @@ app.post('/api/contact', async (req, res) => {
                         </div>
                     </div>
                 `
-            };
-
-            // Use fire-and-forget pattern
-            transporter.sendMail(mailOptions)
-                .then(info => console.log(`[Email] ✅ Success: ${info.messageId}`))
+            })
+                .then(data => console.log(`[Email] ✅ Success: ${data.id}`))
                 .catch(err => console.error(`[Email] ❌ Failed: ${err.message}`));
         }
     } catch (error) {

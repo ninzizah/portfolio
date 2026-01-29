@@ -56,4 +56,4 @@ Your live database is empty. We need to fill it.
     ```
     *(This connects to the cloud implementation and fills it with your projects/skills).*
 
-Done! Your site will be live at `https://ninziza-shema-honore.onrender.com`.
+Done! Your site will be live at `https://ninziza-shema-honore.onrender.com`.    
