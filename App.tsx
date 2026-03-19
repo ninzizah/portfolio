@@ -58,10 +58,10 @@ const App: React.FC = () => {
           dbService.getMessages(),
         ]);
 
-        setProjects(fetchedProjects || []);
-        setResearch(fetchedResearch || []);
-        setSkills(fetchedSkills || []);
-        setMessages(fetchedMessages || []);
+        setProjects(Array.isArray(fetchedProjects) ? fetchedProjects : []);
+        setResearch(Array.isArray(fetchedResearch) ? fetchedResearch : []);
+        setSkills(Array.isArray(fetchedSkills) ? fetchedSkills : []);
+        setMessages(Array.isArray(fetchedMessages) ? fetchedMessages : []);
 
         if (fetchedConfig) {
           setSiteConfig(fetchedConfig);
