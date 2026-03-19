@@ -301,20 +301,19 @@ app.delete('/api/messages/:id', async (req, res) => {
 });
 
 
-// Serve Static Files (Vite Build)
-app.use(express.static(path.join(__dirname, '../dist')));
+if (!process.env.VERCEL) {
+    // Serve Static Files (Vite Build)
+    app.use(express.static(path.join(__dirname, '../dist')));
 
-// Handle Client-Side Routing
-// Express 5 requires Regex or distinct syntax for wildcards
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
-});
+    // Handle Client-Side Routing
+    app.get(/.*/, (req, res) => {
+        res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+    });
 
-// Export the Express API
-module.exports = app;
-
-if (process.env.NODE_ENV !== 'production') {
     app.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
 }
+
+// Export the Express API
+module.exports = app;
