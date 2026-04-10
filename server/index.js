@@ -13,16 +13,17 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // Postgres Configuration
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    // Fallback for local development
-    user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    database: process.env.DB_NAME || 'portfolio_db',
-    password: process.env.DB_PASSWORD || '1212',
-    port: process.env.DB_PORT || 5432,
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
-});
+const dbConfig = process.env.DATABASE_URL 
+    ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
+    : {
+        user: process.env.DB_USER || 'postgres',
+        host: process.env.DB_HOST || 'localhost',
+        database: process.env.DB_NAME || 'portfolio_db',
+        password: process.env.DB_PASSWORD || '1212',
+        port: process.env.DB_PORT || 5432,
+    };
+
+const pool = new Pool(dbConfig);
 
 // Resend Configuration
 console.log('Initializing Resend Email System...');
@@ -64,7 +65,8 @@ app.get('/api/config', async (req, res) => {
                 cvUrl: row.cv_url,
                 aboutText1: row.about_text1,
                 aboutText2: row.about_text2,
-                copyrightText: row.copyright_text
+                copyrightText: row.copyright_text,
+                heroStatus: row.hero_status
             };
             res.json(config);
         } else {
@@ -77,13 +79,13 @@ app.get('/api/config', async (req, res) => {
 });
 
 app.post('/api/config', async (req, res) => {
-    const { heroName, heroSub, email, whatsapp, phone, linkedin, githubUrl, heroImage, cvUrl, aboutText1, aboutText2, copyrightText } = req.body;
+    const { heroName, heroSub, email, whatsapp, phone, linkedin, githubUrl, heroImage, cvUrl, aboutText1, aboutText2, copyrightText, heroStatus } = req.body;
     try {
         const query = `
       UPDATE site_config 
-      SET hero_name=$1, hero_sub=$2, email=$3, whatsapp=$4, phone=$5, linkedin=$6, github_url=$7, hero_image=$8, cv_url=$9, about_text1=$10, about_text2=$11, copyright_text=$12
+      SET hero_name=$1, hero_sub=$2, email=$3, whatsapp=$4, phone=$5, linkedin=$6, github_url=$7, hero_image=$8, cv_url=$9, about_text1=$10, about_text2=$11, copyright_text=$12, hero_status=$13
       WHERE id=1 RETURNING *`;
-        const result = await pool.query(query, [heroName, heroSub, email, whatsapp, phone, linkedin, githubUrl, heroImage, cvUrl, aboutText1, aboutText2, copyrightText]);
+        const result = await pool.query(query, [heroName, heroSub, email, whatsapp, phone, linkedin, githubUrl, heroImage, cvUrl, aboutText1, aboutText2, copyrightText, heroStatus]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error(error);
@@ -160,7 +162,10 @@ app.get('/api/research', async (req, res) => {
             area: row.area,
             date: row.date,
             abstract: row.abstract,
-            imageUrl: row.image_url
+            imageUrl: row.image_url,
+            role: row.role,
+            link: row.link,
+            pdfUrl: row.pdf_url
         }));
         res.json(research);
     } catch (error) {
@@ -169,15 +174,32 @@ app.get('/api/research', async (req, res) => {
 });
 
 app.post('/api/research', async (req, res) => {
-    const { title, area, date, abstract, imageUrl } = req.body;
+    const { title, area, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
     try {
         const query = `
-      INSERT INTO research (title, area, date, abstract, image_url)
-      VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        const result = await pool.query(query, [title, area, date, abstract, imageUrl]);
+      INSERT INTO research (title, area, date, abstract, image_url, role, link, pdf_url)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+        const result = await pool.query(query, [title, area, date, abstract, imageUrl, role, link, pdfUrl]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Create Failed' });
+    }
+});
+
+app.put('/api/research/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, area, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
+    try {
+        const query = `
+        UPDATE research 
+        SET title=$1, area=$2, date=$3, abstract=$4, image_url=$5, role=$6, link=$7, pdf_url=$8
+        WHERE id=$9 RETURNING *`;
+        const result = await pool.query(query, [title, area, date, abstract, imageUrl, role, link, pdfUrl, id]);
+        res.json({ success: true, data: result.rows[0] });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Update Failed' });
     }
 });
 
