@@ -71,15 +71,12 @@ const App: React.FC = () => {
             document.title = "Ninziza Shema Honore | Software Engineer";
           }
           if (fetchedConfig.heroImage) {
-            const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-            if (link) {
-              link.href = fetchedConfig.heroImage;
-            } else {
-              const newLink = document.createElement('link');
-              newLink.rel = 'icon';
-              newLink.href = fetchedConfig.heroImage;
-              document.head.appendChild(newLink);
-            }
+            const existingLinks = document.querySelectorAll("link[rel~='icon']");
+            existingLinks.forEach(l => l.remove());
+            const newLink = document.createElement('link');
+            newLink.rel = 'icon';
+            newLink.href = fetchedConfig.heroImage;
+            document.head.appendChild(newLink);
           }
         }
       } catch (e) {

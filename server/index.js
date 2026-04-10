@@ -102,6 +102,7 @@ app.get('/api/projects', async (req, res) => {
             title: row.title,
             description: row.description,
             tech: row.tech,
+            tags: row.tech ? row.tech.split(',').map(s => s.trim()).filter(Boolean) : [],
             github: row.github,
             link: row.external,
             imageUrl: row.image_url,
@@ -114,12 +115,13 @@ app.get('/api/projects', async (req, res) => {
 });
 
 app.post('/api/projects', async (req, res) => {
-    const { title, description, tech, github, link, imageUrl, videoUrl } = req.body;
+    const { title, description, tech, tags, github, link, imageUrl, videoUrl } = req.body;
+    const finalTech = Array.isArray(tags) ? tags.join(', ') : tech;
     try {
         const query = `
       INSERT INTO projects (title, description, tech, github, external, image_url, video_url)
       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
-        const result = await pool.query(query, [title, description, tech, github, link, imageUrl, videoUrl]);
+        const result = await pool.query(query, [title, description, finalTech, github, link, imageUrl, videoUrl]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error(error);
@@ -129,13 +131,14 @@ app.post('/api/projects', async (req, res) => {
 
 app.put('/api/projects/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, description, tech, github, link, imageUrl, videoUrl } = req.body;
+    const { title, description, tech, tags, github, link, imageUrl, videoUrl } = req.body;
+    const finalTech = Array.isArray(tags) ? tags.join(', ') : tech;
     try {
         const query = `
         UPDATE projects 
         SET title=$1, description=$2, tech=$3, github=$4, external=$5, image_url=$6, video_url=$7
         WHERE id=$8 RETURNING *`;
-        const result = await pool.query(query, [title, description, tech, github, link, imageUrl, videoUrl, id]);
+        const result = await pool.query(query, [title, description, finalTech, github, link, imageUrl, videoUrl, id]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error(error);
@@ -160,6 +163,7 @@ app.get('/api/research', async (req, res) => {
             id: row.id.toString(),
             title: row.title,
             area: row.area,
+            tags: row.area ? row.area.split(',').map(s => s.trim()).filter(Boolean) : [],
             date: row.date,
             abstract: row.abstract,
             imageUrl: row.image_url,
@@ -174,12 +178,13 @@ app.get('/api/research', async (req, res) => {
 });
 
 app.post('/api/research', async (req, res) => {
-    const { title, area, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
+    const { title, area, tags, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
+    const finalArea = Array.isArray(tags) ? tags.join(', ') : area;
     try {
         const query = `
       INSERT INTO research (title, area, date, abstract, image_url, role, link, pdf_url)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-        const result = await pool.query(query, [title, area, date, abstract, imageUrl, role, link, pdfUrl]);
+        const result = await pool.query(query, [title, finalArea, date, abstract, imageUrl, role, link, pdfUrl]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error(error);
@@ -189,13 +194,14 @@ app.post('/api/research', async (req, res) => {
 
 app.put('/api/research/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, area, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
+    const { title, area, tags, date, abstract, imageUrl, role, link, pdfUrl } = req.body;
+    const finalArea = Array.isArray(tags) ? tags.join(', ') : area;
     try {
         const query = `
         UPDATE research 
         SET title=$1, area=$2, date=$3, abstract=$4, image_url=$5, role=$6, link=$7, pdf_url=$8
         WHERE id=$9 RETURNING *`;
-        const result = await pool.query(query, [title, area, date, abstract, imageUrl, role, link, pdfUrl, id]);
+        const result = await pool.query(query, [title, finalArea, date, abstract, imageUrl, role, link, pdfUrl, id]);
         res.json({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error(error);
