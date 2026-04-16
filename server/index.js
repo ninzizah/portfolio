@@ -102,7 +102,7 @@ app.get('/api/projects', async (req, res) => {
             title: row.title,
             description: row.description,
             tech: row.tech,
-            tags: row.tech ? row.tech.split(',').map(s => s.trim()).filter(Boolean) : [],
+            tags: Array.isArray(row.tech) ? row.tech : (typeof row.tech === 'string' ? row.tech.split(',').map(s => s.trim()).filter(Boolean) : []),
             github: row.github,
             link: row.external,
             imageUrl: row.image_url,
@@ -116,7 +116,7 @@ app.get('/api/projects', async (req, res) => {
 
 app.post('/api/projects', async (req, res) => {
     const { title, description, tech, tags, github, link, imageUrl, videoUrl } = req.body;
-    const finalTech = Array.isArray(tags) ? tags.join(', ') : tech;
+    const finalTech = Array.isArray(tags) ? tags : (typeof tech === 'string' ? tech.split(',').map(s => s.trim()) : []);
     try {
         const query = `
       INSERT INTO projects (title, description, tech, github, external, image_url, video_url)
@@ -132,7 +132,7 @@ app.post('/api/projects', async (req, res) => {
 app.put('/api/projects/:id', async (req, res) => {
     const { id } = req.params;
     const { title, description, tech, tags, github, link, imageUrl, videoUrl } = req.body;
-    const finalTech = Array.isArray(tags) ? tags.join(', ') : tech;
+    const finalTech = Array.isArray(tags) ? tags : (typeof tech === 'string' ? tech.split(',').map(s => s.trim()) : []);
     try {
         const query = `
         UPDATE projects 
